@@ -2,3 +2,7 @@
 /public/
 /resources/_gen/
 /.hugo_build.lock
+
+# Wrangler
+.wrangler/
+.dev.vars
