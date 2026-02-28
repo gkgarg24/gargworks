@@ -1,0 +1,18 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'GargWorks'
+
+[params]
+  description = "Gaurav Garg — software engineer specializing in identity management, authentication systems, and backend development."
+  author = "Gaurav Garg"
+  keywords = "software engineer, identity management, authentication, Java, Go, Spring Boot, WebAuthn, LDAP, backend development, Charlotte NC"
+
+[menu]
+  [[menu.main]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 1
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 2

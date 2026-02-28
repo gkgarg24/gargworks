@@ -1,0 +1,22 @@
+{{ define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<p>{{ .Content }}</p>
+
+<h2>Personal</h2>
+{{ range where .Pages "Params.work" "ne" true }}
+  <article>
+    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    <p>{{ .Summary }}</p>
+  </article>
+{{ end }}
+
+<h2>Work</h2>
+{{ range where .Pages "Params.work" true }}
+  <article>
+    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    <p>{{ .Summary }}</p>
+  </article>
+{{ end }}
+{{ end }}
