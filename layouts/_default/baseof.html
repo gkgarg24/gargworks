@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ .Site.Language.Locale }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,21 @@
   <meta property="og:site_name" content="{{ .Site.Title }}">
 
   <link rel="canonical" href="{{ .Permalink }}">
-  <link rel="stylesheet" href="/css/style.css">
+
+  {{- $vars := .Site.Params.style }}
+  {{- $css := resources.Get "css/style.css" | css.Build (dict "vars" $vars) }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
 </head>
 <body>
   {{ partial "header.html" . }}

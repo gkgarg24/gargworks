@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital@0;1&display=swap');
+@import "hugo:vars";
+@import "hugo:vars/dark" (prefers-color-scheme: dark);
 
 * {
   margin: 0;
@@ -7,11 +9,34 @@
 }
 
 :root {
+  color-scheme: light dark;
+}
+
+/* Manual toggle overrides (higher specificity than media query) */
+[data-theme="light"] {
   --text: #1a1a2e;
   --muted: #6b7280;
   --accent: #2563eb;
   --border: #e5e7eb;
-  --bg-subtle: #f9fafb;
+  --bg: #ffffff;
+  --bgsubtle: #f9fafb;
+  --codebg: #f1f5f9;
+  --codetext: #0f172a;
+  --prebg: #0f172a;
+  --pretext: #e2e8f0;
+}
+
+[data-theme="dark"] {
+  --text: #e2e8f0;
+  --muted: #9ca3af;
+  --accent: #60a5fa;
+  --border: #374151;
+  --bg: #111827;
+  --bgsubtle: #1f2937;
+  --codebg: #1e293b;
+  --codetext: #e2e8f0;
+  --prebg: #0c1222;
+  --pretext: #e2e8f0;
 }
 
 body {
@@ -22,12 +47,14 @@ body {
   max-width: 760px;
   margin: 0 auto;
   padding: 0 24px;
-  background: #fff;
+  background: var(--bg);
+  transition: background 0.2s, color 0.2s;
 }
 
 /* ── Nav ── */
 header nav {
   display: flex;
+  align-items: center;
   gap: 24px;
   padding: 28px 0;
   border-bottom: 1px solid var(--border);
@@ -54,6 +81,32 @@ header nav a:hover {
   color: var(--accent);
 }
 
+/* ── Theme toggle ── */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--muted);
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
 /* ── Main ── */
 main {
   min-height: 70vh;
@@ -61,7 +114,7 @@ main {
 
 main p {
   margin-bottom: 1rem;
-  color: #374151;
+  color: var(--muted);
 }
 
 main ul, main ol {
@@ -70,7 +123,7 @@ main ul, main ol {
 
 main li {
   margin-bottom: 0.3rem;
-  color: #374151;
+  color: var(--muted);
 }
 
 main hr {
@@ -149,12 +202,12 @@ article {
   padding: 1.5rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--bg-subtle);
-  transition: border-color 0.15s;
+  background: var(--bgsubtle);
+  transition: border-color 0.15s, background 0.2s;
 }
 
 article:hover {
-  border-color: #93c5fd;
+  border-color: var(--accent);
 }
 
 article h2, article h3 {
@@ -185,15 +238,15 @@ article p {
 code {
   font-family: 'SF Mono', 'Fira Code', monospace;
   font-size: 0.85em;
-  background: #f1f5f9;
+  background: var(--codebg);
   padding: 0.15em 0.4em;
   border-radius: 4px;
-  color: #0f172a;
+  color: var(--codetext);
 }
 
 pre {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: var(--prebg);
+  color: var(--pretext);
   padding: 1.25rem;
   border-radius: 8px;
   overflow-x: auto;
@@ -236,7 +289,7 @@ time {
   font-size: 1rem;
   font-weight: 500;
   color: var(--muted);
-  background: var(--bg-subtle);
+  background: var(--bgsubtle);
   padding: 0.6rem 1rem;
   border-radius: 6px;
   border-left: 3px solid var(--accent);
@@ -276,7 +329,7 @@ time {
 .single-content ul li {
   padding: 0.6rem 0.75rem;
   border-bottom: 1px solid var(--border);
-  color: #374151;
+  color: var(--muted);
 }
 
 .single-content ul li:last-child {

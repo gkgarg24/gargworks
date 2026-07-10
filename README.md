@@ -1,44 +1,47 @@
 # GargWorks
 
-Personal website and portfolio for gargworks.com
+Personal website and portfolio — [gargworks.com](https://gargworks.com)
 
-## Overview
+## Live Projects
 
-Static website showcasing projects, profile, and professional links.
-
-## Domain
-
-- **Production:** https://gargworks.com
-- **Subdomain Projects:**
-  - https://endax.gargworks.com - Energy Data Explorer
+| Subdomain | Project | Stack |
+|-----------|---------|-------|
+| [endax.gargworks.com](https://endax.gargworks.com) | Energy Data Explorer | Go · DuckDB · AWS EC2 ARM64 |
+| [patscape.gargworks.com](https://patscape.gargworks.com) | U.S. Patent Explorer | Go · DuckDB · OCI ARM64 |
+| [signum.gargworks.com](https://signum.gargworks.com) | OIDC Identity Provider | Java 26 · Helidon SE · DuckDB · AWS EC2 ARM64 |
 
 ## Structure
 
 ```
-/
-├── index.html          # Landing page
-├── projects/           # Projects showcase
-├── about/              # About/profile page
-├── css/                # Stylesheets
-├── js/                 # JavaScript
-└── assets/             # Images, icons, etc.
+├── hugo.toml           # Site config (colors, menu, metadata)
+├── assets/css/         # Stylesheet (processed via css.Build + hugo:vars)
+├── content/
+│   ├── _index.md       # Home page
+│   ├── about/          # About/profile
+│   └── projects/       # Project pages (personal + work)
+├── layouts/
+│   ├── _default/       # baseof, list, single templates
+│   ├── partials/       # header, footer
+│   └── index.html      # Home page template
+└── public/             # Generated output
+```
+
+## Tech Stack
+
+- Hugo 0.163+ (static site generator)
+- CSS via Hugo's `css.Build` pipeline with `hugo:vars` injection
+- Dark mode (OS preference + manual toggle, colors from hugo.toml)
+- Inter + Lora fonts
+- Cloudflare Pages (hosting + CDN)
+- Cloudflare DNS
+
+## Development
+
+```bash
+hugo server -D    # Local dev server with drafts
+hugo              # Build to public/
 ```
 
 ## Deployment
 
-TBD - Will deploy to AWS S3 + CloudFront or similar static hosting
-
-## Tech Stack
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- No build process (keep it simple)
-
-## TODO
-
-- [ ] Design landing page
-- [ ] Create projects showcase
-- [ ] Add profile/about section
-- [ ] Set up deployment pipeline
-- [ ] Configure DNS for root domain
+Cloudflare Pages with automatic deployments from the main branch.
